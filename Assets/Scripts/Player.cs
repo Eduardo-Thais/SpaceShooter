@@ -20,6 +20,9 @@ public class Player : MonoBehaviour
 
     public GameObject explosionPrefab;
 
+    public GameObject extraGuns;
+
+    public Transform top, bottom, left, right;
     
 
     // Start is called before the first frame update
@@ -27,6 +30,10 @@ public class Player : MonoBehaviour
     {
         _GC = FindObjectOfType(typeof(_GC)) as _GC;
 
+        top = GameObject.Find("Top").transform;
+        bottom = GameObject.Find("Bottom").transform;
+        left = GameObject.Find("Left").transform;
+        right = GameObject.Find("Right").transform;
 
         playerRb = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
@@ -50,7 +57,25 @@ public class Player : MonoBehaviour
         float movimentX = Input.GetAxis("Horizontal");
         float movimentY = Input.GetAxis("Vertical");
 
-        playerRb.velocity = new Vector2(movimentX * velocity, movimentY * velocity);
+        
+            playerRb.velocity = new Vector2(movimentX * velocity, movimentY * velocity);
+
+        if(transform.position.x < left.position.x)
+        {
+            transform.position = new Vector3(left.position.x, transform.position.y, transform.position.z);
+        } 
+        if(transform.position.x > right.position.x)
+        {
+            transform.position = new Vector3(right.position.x, transform.position.y, transform.position.z);
+        } 
+        if(transform.position.y > top.position.y)
+        {
+            transform.position = new Vector3(transform.position.x, top.position.y, transform.position.z);
+        }
+        if(transform.position.y < bottom.position.y)
+        {
+            transform.position = new Vector3(transform.position.x, bottom.position.y, transform.position.z);
+        }
 
 
         if(movimentX < 0)
@@ -129,7 +154,8 @@ public class Player : MonoBehaviour
 
     void PowerUp()
     {
-
+        extraGuns.SetActive(true);
+        _GC.pontos += 250;
     }
 
     

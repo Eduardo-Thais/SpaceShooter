@@ -36,6 +36,9 @@ public class EnemyIA : MonoBehaviour
 
     public int points;
 
+    public GameObject drops;
+    public float dropChance;
+
 
     // Start is called before the first frame update
     void Start()
@@ -116,7 +119,7 @@ public class EnemyIA : MonoBehaviour
         switch(col.gameObject.tag)
         {
             case "Player":
-                Explodir();
+                Explode();
                 break;
         }
     }
@@ -126,16 +129,25 @@ public class EnemyIA : MonoBehaviour
         hp -= dammage;
         if(hp <= 0)
         {
-            Explodir();
+            Explode();
         }
     }
 
-    void Explodir()
+    void Explode()
     {
         GameObject tempPrefab = Instantiate(explosionPrefab) as GameObject;
         tempPrefab.transform.position = transform.position;
         tempPrefab.GetComponent<Rigidbody2D>().velocity = new Vector2(0, velocity * -1);
         _GC.pontos += points;
+
+        rand = Random.Range(0, 100);
+        if(rand <= dropChance)
+        {
+            GameObject tempdrop = Instantiate(drops) as GameObject;
+            tempdrop.transform.position = transform.position;
+        }
+
+
         Destroy(this.gameObject);
     }
 }

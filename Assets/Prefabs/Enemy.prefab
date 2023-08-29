@@ -189,6 +189,8 @@ MonoBehaviour:
   hp: 3
   explosionPrefab: {fileID: 5388514026323239601, guid: ba712081af66f6e438bddc0d18b1b431, type: 3}
   points: 5
+  drops: {fileID: 6452897258027157095, guid: 5c5978eec41c7dd4b9d43569e4471e3c, type: 3}
+  dropChance: 15
 --- !u!114 &7557953955474453472
 MonoBehaviour:
   m_ObjectHideFlags: 0
