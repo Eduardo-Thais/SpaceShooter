@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using JoyStickNameSpace;
 
 public class Player : MonoBehaviour
 {
     private _GC _GC;
+
+    private JoyStick control;
 
     private Rigidbody2D playerRb;
     private Animator    playerAnimator;
@@ -29,6 +32,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         _GC = FindObjectOfType(typeof(_GC)) as _GC;
+        control = FindObjectOfType(typeof(JoyStick)) as JoyStick;
 
         top = GameObject.Find("Top").transform;
         bottom = GameObject.Find("Bottom").transform;
@@ -56,9 +60,21 @@ public class Player : MonoBehaviour
     {
         float movimentX = Input.GetAxis("Horizontal");
         float movimentY = Input.GetAxis("Vertical");
+        if(control != null){
+            if (control.Horizontal() != 0)
+            {
+                movimentX = control.Horizontal();
 
-        
-            playerRb.velocity = new Vector2(movimentX * velocity, movimentY * velocity);
+            }
+
+            if (control.Vertical() != 0)
+            {
+                movimentY = control.Vertical();
+
+            }
+        }
+
+        playerRb.velocity = new Vector2(movimentX * velocity, movimentY * velocity);
 
         if(transform.position.x < left.position.x)
         {

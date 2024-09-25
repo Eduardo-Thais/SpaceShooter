@@ -17,13 +17,10 @@ public class ShipGun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            Shoot();
-        }
+        
     }
 
-    void Shoot()
+    public void Shoot()
     {
         GameObject tempPrefab = Instantiate(prefabBullet) as GameObject;
         tempPrefab.transform.position = transform.position;
